@@ -1,16 +1,15 @@
-stat_file <- "SCEB-Transrate-statistics.tsv"
+tsStats_file <- "SCEB-Transrate-statistics.tsv"
 
-library(plyr)
-suppressPackageStartupMessages(library(dplyr))
-suppressPackageStartupMessages(library(Biostrings))
+library(dplyr)
+library(Biostrings)
 
-tStats <- read.delim(file = stat_file, blank.lines.skip = TRUE, skip = 44, header = TRUE) # First 44 lines not necessary, 45th line is header, blank.lines.skip includes all lines that aren't blank (including comments lines)
+tsDat <- read.delim(file = tsStats_file, stringsAsFactors = FALSE, 
+                    skip = 44) # First 44 lines are a summary of the data
 
-names(tStats)[names(tStats) == 'X..Name'] <- 'name' ## First column is read in as "X..Name", here I convert it to just name for simplicity
+names(tsDat)[1] <- 'name' # Simplify 1st column name
 
-good_scaffolds_list <- tStats %>% 
-  select(name, quality) %>% 
-  filter(quality == "good") %>% 
-  select(name)
+good_scaffolds <- tsDat %>% filter(quality == "good") %>% select(name) %>% unlist
 
-sequences <- readDNAStringSet(filepath = "SCEB-SOAPdenovo-Trans-assembly.fa")
+SCEBdat <- readDNAStringSet(filepath = "SCEB-SOAPdenovo-Trans-assembly.fa")
+
+
