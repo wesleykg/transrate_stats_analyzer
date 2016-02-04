@@ -18,10 +18,10 @@ names(TRSdat)[1] <- 'names' # Simplify 1st column name
 good_scaffolds_names <- TRSdat %>% filter(quality == "good") %>%
   select(names) %>% unlist
 
-##Create a DNAStringSet object
+##Create a DNAStringSet object with just good scaffold names
 good_scaffolds = NULL
 for (i in 1:length(good_scaffolds_names))
-  good_scaffolds = c(good_scaffolds, paste0(""))
+  good_scaffolds = c(good_scaffolds, paste0("ATCG"))
 good_scaffolds <- DNAStringSet(good_scaffolds)
 names(good_scaffolds)[1:length(good_scaffolds_names)] <- good_scaffolds_names
 str(good_scaffolds)
