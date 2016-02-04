@@ -5,6 +5,7 @@ suppressPackageStartupMessages(library(Biostrings))
 ## List filenames
 transcriptome_file <- "SCEB-SOAPdenovo-Trans-assembly.fa"
 transratestats_file <- "SCEB-Transrate-statistics.tsv"
+transcriptome_out <- "SCEB-cleaned.fa"
 
 ## Read in a single species transcriptome data
 Tdat <- readDNAStringSet(filepath = transcriptome_file)
@@ -24,3 +25,5 @@ scaffolds_index <- names(Tdat) %in% good_scaffolds_names
 ## Removes all bad scaffolds
 Cdat <- Tdat[scaffolds_index]
 
+## Write good scaffolds to file:
+writeXStringSet(Cdat, transcriptome_out)
