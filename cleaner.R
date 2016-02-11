@@ -1,12 +1,17 @@
+"Usage: cleaner.R <transcriptome> <transratestats>" -> doc
+
 ## Load packages
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(Biostrings))
-library(docopt)
 
-## List filenames
-transcriptome_file <- "SCEB-SOAPdenovo-Trans-assembly.fa"
-transratestats_file <- "SCEB-Transrate-statistics.tsv"
-clean_transcriptome_out <- "SCEB-cleaned.fa"
+cmd_args <- docopt::docopt(doc) # Produce a vector of command line arguments
+
+## Assign command line arguments to variables
+transcriptome_file <- unlist(cmd_args[1]) 
+transratestats_file <- unlist(cmd_args[2])
+
+onekp_ID <- substr(transcriptome_file, start = 1, stop = 4)
+clean_transcriptome_out <- paste0(onekp_ID, "-cleaned", ".fa")
 
 ## Read in a single species Transcriptome (T) data
 Tdat <- readDNAStringSet(filepath = transcriptome_file)
@@ -27,4 +32,4 @@ scaffolds_index <- names(Tdat) %in% good_scaffolds_names
 Cdat <- Tdat[scaffolds_index]
 
 ## Write good scaffolds to file:
-writeXStringSet(Cdat, transcriptome_out)
+writeXStringSet(Cdat, clean_transcriptome_out)
