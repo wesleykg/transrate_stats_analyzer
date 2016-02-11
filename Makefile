@@ -1,10 +1,10 @@
-all: SCEB-cleaned.fasta
+all: $(patsubst %-SOAPdenovo-Trans-assembly.fa, %-Transrate-statistics.tsv, $(wildcard *-SOAPdenovo-Trans-assembly.fa)) *-cleaned.fasta
 
 clean: 
-	rm -f SCEB-cleaned.fasta
+	rm -f *-cleaned.fasta
 
-SCEB-cleaned.fasta: SCEB-SOAPdenovo-Trans-assembly.fa SCEB-Transrate-statistics.tsv
-	Rscript cleaner.R $^
+%-cleaned.fasta: %-SOAPdenovo-Trans-assembly.fa %-Transrate-statistics.tsv
+	Rscript trs_cleaner.R $^
 
 .PHONY: all clean
 .DELETE_ON_ERROR:
