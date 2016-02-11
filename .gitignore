@@ -3,3 +3,4 @@
 .RData
 *.fasta
 *.fa
+*.tsv
