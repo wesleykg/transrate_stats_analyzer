@@ -1,9 +1,9 @@
-all: $(patsubst %-SOAPdenovo-Trans-assembly.fa, %-Transrate-statistics.tsv, $(wildcard *-SOAPdenovo-Trans-assembly.fa)) *-cleaned.fasta
+all: $(patsubst %-SOAPdenovo-Trans-assembly.fa, %-cleaned.fasta, $(wildcard *-SOAPdenovo-Trans-assembly.fa))
 
 clean: 
 	rm -f *-cleaned.fasta
 
-%-cleaned.fasta: %-SOAPdenovo-Trans-assembly.fa %-Transrate-statistics.tsv
+%-cleaned.fasta: %-SOAPdenovo-Trans-assembly.fa %-SOAPdenovo-Trans-Transrate-stats.tsv
 	Rscript trs_cleaner.R $^
 
 .PHONY: all clean
