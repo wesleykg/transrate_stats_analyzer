@@ -4,4 +4,6 @@
 .DS_Store
 *.fasta
 *.fa
+*.fna
+*.faa
 *.tsv
