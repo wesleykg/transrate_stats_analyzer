@@ -14,10 +14,10 @@ transratestats_file <- unlist(cmd_args[2])
 onekp_ID <- substr(transcriptome_file, start = 1, stop = 4)
 filename <- file_path_sans_ext(transcriptome_file)
 extension <- file_ext(transcriptome_file)
-clean_transcriptome_out <- paste0(filename, "-cleaned", ".fasta")
+clean_transcriptome_out <- paste0(filename, "_cleaned", ".fasta")
 
 ## Read in a single species Transcriptome (T) data
-if(extension == 'fna'){
+if(extension == 'fa'){
 	Tdat <- readDNAStringSet(filepath = transcriptome_file)
 } else if (extension == 'faa'){
 	Tdat <- readAAStringSet(filepath = transcriptome_file)
